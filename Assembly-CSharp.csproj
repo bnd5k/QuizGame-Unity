@@ -46,11 +46,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\AnswerButton.cs" />
      <Compile Include="Assets\Scripts\AnswerData.cs" />
      <Compile Include="Assets\Scripts\DataController.cs" />
      <Compile Include="Assets\Scripts\MenuScreenController.cs" />
      <Compile Include="Assets\Scripts\QuestionData.cs" />
      <Compile Include="Assets\Scripts\RoundData.cs" />
+     <Compile Include="Assets\Scripts\SimpleObjectPool.cs" />
  <Reference Include="UnityEngine.Analytics">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
