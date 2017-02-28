@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour {
 	public Text scoreDisplayText;
 	public GameObject questionDisplay;
 	public GameObject roundEndDisplay;
+	public Text timeRemainingDisplayText;
 
 	private DataController dataController;
 	private RoundData currentRoundData;
@@ -26,14 +27,11 @@ public class GameController : MonoBehaviour {
 
 
 	void Start () {
-		Debug.Log("Inside GameController.start");
 		dataController = FindObjectOfType<DataController> ();
 		currentRoundData = dataController.GetCurrentRoundData ();
-		Debug.Log($"{currentRoundData.questions}");
 		questionPool = currentRoundData.questions;
 		timeRemaining = currentRoundData.timeLimitInSeconds;
-
-		Debug.Log ($"{timeRemaining}");
+		UpdateTimeRemainingDisplay ();
 
 		playerScore = 0;
 		questionIndex = 0;
@@ -41,7 +39,6 @@ public class GameController : MonoBehaviour {
 		ShowQuestion ();
 		isRoundActive = true;
 
-		Debug.Log ("At end of GameController.start");
 	}
 
 	private void ShowQuestion()
@@ -89,8 +86,22 @@ public class GameController : MonoBehaviour {
 		roundEndDisplay.SetActive (true);
 	}
 
-	// Update is called once per frame
+	public void ReturnToMenu(){
+		SceneManager.LoadScene ("MenuScreen");
+	}
+
+	private void UpdateTimeRemainingDisplay() {
+		timeRemainingDisplayText.text = "Time: " + Mathf.Round (timeRemaining).ToString (); 
+	}
+
 	void Update () {
-		
+		if (isRoundActive) {
+			timeRemaining -= Time.deltaTime;
+			UpdateTimeRemainingDisplay ();
+
+			if (timeRemaining <= 0f) {
+				EndRound ();
+			}
+		}
 	}
 }
