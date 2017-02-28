@@ -9,23 +9,21 @@ public class AnswerButton : MonoBehaviour {
 	public Text answerText;
 
 	private AnswerData answerData;
+	private GameController gameController;
 
 	// Use this for initialization
 	void Start () {
-		
+		gameController = FindObjectOfType<GameController> ();
 	}
 
 	public void Setup(AnswerData data)
 	{
-
-
 		answerData = data;
 		answerText.text = answerData.answerText;
 		Debug.Log ($"{answerData.answerText}");
 	}
 
-	// Update is called once per frame
-	void Update () {
-		
+	public void handleClick() {
+		gameController.AnswerButtonClicked (answerData.isCorrect);
 	}
 }
