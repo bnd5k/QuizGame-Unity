@@ -17,8 +17,11 @@ public class AnswerButton : MonoBehaviour {
 
 	public void Setup(AnswerData data)
 	{
+
+
 		answerData = data;
-		answerData.answerText = answerData.answerText;
+		answerText.text = answerData.answerText;
+		Debug.Log ($"{answerData.answerText}");
 	}
 
 	// Update is called once per frame

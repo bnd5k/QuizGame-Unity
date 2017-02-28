@@ -23,16 +23,22 @@ public class GameController : MonoBehaviour {
 
 
 	void Start () {
+		Debug.Log("Inside GameController.start");
 		dataController = FindObjectOfType<DataController> ();
 		currentRoundData = dataController.GetCurrentRoundData ();
+		Debug.Log($"{currentRoundData.questions}");
 		questionPool = currentRoundData.questions;
 		timeRemaining = currentRoundData.timeLimitInSeconds;
+
+		Debug.Log ($"{timeRemaining}");
 
 		playerScore = 0;
 		questionIndex = 0;
 
 		ShowQuestion ();
 		isRoundActive = true;
+
+		Debug.Log ("At end of GameController.start");
 	}
 
 	private void ShowQuestion()
@@ -43,8 +49,9 @@ public class GameController : MonoBehaviour {
 
 		for (int i = 0; i < questionData.answers.Length; i++) {
 			GameObject answerButtonGameObject = answerButtonObjectPool.GetObject ();
-			answerButtonGameObject.transform.SetParent (answerButtonParent);
 			answerButtonGameObjects.Add(answerButtonGameObject);
+			answerButtonGameObject.transform.SetParent (answerButtonParent);
+
 
 			AnswerButton answerButton = answerButtonGameObject.GetComponent<AnswerButton> ();
 			answerButton.Setup (questionData.answers[i]);
