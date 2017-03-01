@@ -11,14 +11,15 @@ public class GameController : MonoBehaviour {
 	public SimpleObjectPool answerButtonObjectPool;
 	public Transform answerButtonParent;
 	public Text scoreDisplayText;
+	public Text timeRemainingDisplayText;
+
 	public GameObject questionDisplay;
 	public GameObject roundEndDisplay;
-	public Text timeRemainingDisplayText;
+	public Text highScoreDisplay;
 
 	private DataController dataController;
 	private RoundData currentRoundData;
 	private QuestionData[] questionPool;
-
 	private bool isRoundActive;
 	private float timeRemaining;
 	private int questionIndex;
@@ -69,10 +70,9 @@ public class GameController : MonoBehaviour {
 		if (isCorrect) {
 			playerScore += currentRoundData.pointsAddedForCorrectAnswer;
 			scoreDisplayText.text = "Score: " + playerScore.ToString();
-
 		}
 
-		if (questionPool.Length > questionIndex + 1) {
+		if (questionPool.Length	 > questionIndex + 1) {
 			questionIndex++;
 			ShowQuestion();
 		} else {
@@ -82,6 +82,12 @@ public class GameController : MonoBehaviour {
 
 	public void EndRound() {
 		isRoundActive = false;
+
+
+		dataController.SubmitNewPlayerScore(playerScore);
+		Debug.Log($"{dataController.GetHighestPlayerScore().ToString()}");
+		highScoreDisplay.text = "High Score: " + dataController.GetHighestPlayerScore ().ToString ();
+
 		questionDisplay.SetActive (false);
 		roundEndDisplay.SetActive (true);
 	}
